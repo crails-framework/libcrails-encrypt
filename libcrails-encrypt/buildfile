@@ -1,0 +1,33 @@
+intf_libs = # Interface dependencies.
+impl_libs = # Implementation dependencies.
+import intf_libs += libbacktrace%lib{backtrace}
+#import xxxx_libs += libhello%lib{hello}
+
+lib{crails-encrypt}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
+
+hxx{export}@./: cxx.importable = false
+
+cxx.poptions =+ "-I$out_root" "-I$src_root"
+
+{hbmia obja}{*}: cxx.poptions += -DLIBCRAILS_STATIC_BUILD
+{hbmis objs}{*}: cxx.poptions += -DLIBCRAILS_SHARED_BUILD
+
+lib{crails-encrypt}:
+{
+  cxx.export.poptions = "-I$out_root/libcrails-encrypt" "-I$src_root/libcrails-encrypt"
+  cxx.export.libs = $intf_libs
+}
+
+liba{crails-encrypt}: cxx.export.poptions += -DLIBCRAILS_STATIC
+libs{crails-encrypt}: cxx.export.poptions += -DLIBCRAILS_SHARED
+
+if $version.pre_release
+  lib{crails-encrypt}: bin.lib.version = "-$version.project_id"
+else
+  lib{crails-encrypt}: bin.lib.version = "-$version.major.$version.minor"
+
+{hxx ixx txx}{*}:
+{
+  install         = include/
+  install.subdirs = true
+}

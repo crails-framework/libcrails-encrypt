@@ -1,0 +1,7 @@
+project = libcrails-encrypt
+
+using version
+using config
+using test
+using install
+using dist

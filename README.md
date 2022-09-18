@@ -1,0 +1,3 @@
+# libcrails-encrypt
+
+C++ library

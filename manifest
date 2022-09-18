@@ -1,0 +1,12 @@
+: 1
+name: libcrails-encrypt
+version: 2.0.0
+summary: C++ encryption helpers based on libcrypto
+license: GPLv2
+description-file: README.md
+url: https://github.com/crails-framework/libcrails-encrypt.git
+email: michael@unetresgrossebite.com
+depends: * build2 >= 0.15.0
+depends: * bpkg >= 0.15.0
+depends: libcrypto ~1.1.1
+depends: libbacktrace >= 1.0.0

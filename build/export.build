@@ -1,0 +1,6 @@
+$out_root/
+{
+  include libcrails-encrypt/
+}
+
+export $out_root/libcrails-encrypt/$import.target
