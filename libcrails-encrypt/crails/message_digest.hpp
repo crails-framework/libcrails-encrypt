@@ -22,6 +22,7 @@ namespace Crails
     MessageDigest& operator>>(std::string& output);
 
     std::string to_string();
+    std::string to_base64();
 
     template<typename ITERATOR>
     MessageDigest& insert(ITERATOR begin, ITERATOR end)

@@ -5,6 +5,13 @@
 using namespace Crails;
 using namespace std;
 
+struct EvpEncodeContext
+{
+  EVP_CONTEXT_CTX* ptr;
+  EvpEncodeContext() { ptr = EVP_ENCODE_CTX_new(); }
+  ~EvpEncodeContext() { EVP_ENCODE_CTX_free(ptr); }
+};
+
 MessageDigest::MessageDigest(const EVP_MD* md) : context(EVP_MD_CTX_new()), md(md)
 {
 }
@@ -42,6 +49,19 @@ string MessageDigest::to_string()
   for (unsigned int i = 0 ; i < md_len ; ++i)
     std::sprintf(&output[i * 2], "%02x", md_value[i]);
   return output;
+}
+
+string MessageDigest::to_base64()
+{
+  EvpEncodeContext context;
+  char buffer[EVP_MAX_MD_SIZE];
+  int output_length;
+
+  if (initialized) finalize();
+  EVP_EncodeInit(context.ptr);
+  EVP_EncodeBlock(reinterpret_cast<unsigned char*>(buffer), md_value, md_len);
+  EVP_EncodeFinal(context.ptr, reinterpret_cast<unsigned char*>(buffer), &output_length);
+  return string(buffer);
 }
 
 void MessageDigest::initialize()
