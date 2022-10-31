@@ -7,7 +7,7 @@ using namespace std;
 
 struct EvpEncodeContext
 {
-  EVP_CONTEXT_CTX* ptr;
+  EVP_ENCODE_CTX* ptr;
   EvpEncodeContext() { ptr = EVP_ENCODE_CTX_new(); }
   ~EvpEncodeContext() { EVP_ENCODE_CTX_free(ptr); }
 };
