@@ -1,21 +1,19 @@
 #ifndef  CRAILS_MESSAGE_DIGEST_HPP
 # define CRAILS_MESSAGE_DIGEST_HPP
 
-# include <openssl/evp.h>
-# include <string>
+# include "digest.hpp"
 
 namespace Crails
 {
-  class MessageDigest
+  class MessageDigest : public Digest
   {
     EVP_MD_CTX*   context;
     const EVP_MD* md;
-    unsigned char md_value[EVP_MAX_MD_SIZE];
-    unsigned int  md_len;
     bool          initialized =  false;
   public:
     MessageDigest(const EVP_MD* md);
     MessageDigest(const std::string& strategy);
+    MessageDigest(const MessageDigest&) = delete;
     virtual ~MessageDigest();
 
     MessageDigest& operator<<(const std::string& input);

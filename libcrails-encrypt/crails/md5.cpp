@@ -1,4 +1,5 @@
 #include "md5.hpp"
+#include "hmac.hpp"
 #include <openssl/evp.h>
 
 using namespace std;

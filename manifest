@@ -10,3 +10,4 @@ depends: * build2 >= 0.15.0
 depends: * bpkg >= 0.15.0
 depends: libcrypto ~1.1.1
 depends: libbacktrace >= 1.0.0
+depends: libcrails-semantics >= 2.0.0
