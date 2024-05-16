@@ -17,6 +17,7 @@ namespace Crails
     virtual ~MessageDigest();
 
     MessageDigest& operator<<(const std::string& input);
+    MessageDigest& operator<<(char input);
     MessageDigest& operator>>(std::string& output);
 
     std::string to_string();

@@ -27,6 +27,13 @@ MessageDigest& MessageDigest::operator<<(const string& input)
   return *this;
 }
 
+MessageDigest& MessageDigest::operator<<(char input)
+{
+  if (!initialized) initialize();
+  EVP_DigestUpdate(context, &input, 1);
+  return *this;
+}
+
 MessageDigest& MessageDigest::operator>>(string& output)
 {
   output = to_string();
