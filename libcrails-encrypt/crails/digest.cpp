@@ -3,7 +3,7 @@
 using namespace std;
 using namespace Crails;
 
-string Digest::to_string()
+string Digest::to_string() const
 {
   string output;
 
@@ -13,7 +13,7 @@ string Digest::to_string()
   return output;
 }
 
-string Digest::to_base64()
+string Digest::to_base64() const
 {
   char buffer[EVP_MAX_MD_SIZE];
 

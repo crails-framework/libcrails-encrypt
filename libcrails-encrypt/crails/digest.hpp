@@ -12,8 +12,8 @@ namespace Crails
     unsigned char md_value[EVP_MAX_MD_SIZE];
     unsigned int  md_len;
   public:
-    std::string to_string();
-    std::string to_base64();
+    std::string to_string() const;
+    std::string to_base64() const;
   };
 }
 
