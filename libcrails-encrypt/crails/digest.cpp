@@ -15,7 +15,7 @@ string Digest::to_string() const
 
 string Digest::to_base64() const
 {
-  char buffer[EVP_MAX_MD_SIZE];
+  char buffer[EVP_MAX_MD_SIZE * 2];
 
   EVP_EncodeBlock(reinterpret_cast<unsigned char*>(buffer), md_value, md_len);
   return string(buffer);
