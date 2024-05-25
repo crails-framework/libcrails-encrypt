@@ -7,7 +7,7 @@ const unsigned int Pbkdf2HmacDigest::iteration_count = 4096;
 
 Pbkdf2HmacDigest::Pbkdf2HmacDigest(const string_view password, const string_view salt, const EVP_MD* digest)
 {
-  md_len = 86;
+  md_len = 64;
   ::PKCS5_PBKDF2_HMAC(
     password.data(),
     password.length(),
