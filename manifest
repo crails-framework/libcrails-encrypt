@@ -8,6 +8,7 @@ url: https://github.com/crails-framework/libcrails-encrypt.git
 email: michael@unetresgrossebite.com
 depends: * build2 >= 0.15.0
 depends: * bpkg >= 0.15.0
-depends: libcrypto ~1.1.1
+depends: libcrypto >= 1.1.1
 depends: libbacktrace >= 1.0.0
 depends: libcrails-semantics >= 2.0.0
+depends: libssl >= 3.0.0
