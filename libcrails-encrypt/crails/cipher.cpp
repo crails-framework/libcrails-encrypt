@@ -38,6 +38,13 @@
 #include <crails/utils/backtrace.hpp>
 #include <mutex>
 #include <thread>
+#ifdef _WIN32
+# define bzero(b,len) (memset((b), '\0', (len)), (void)0)
+#endif
+
+typedef unsigned int uint;
+typedef unsigned char uchar;
+
 using namespace std;
 
 // ================================================================
