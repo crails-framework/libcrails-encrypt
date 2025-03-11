@@ -65,10 +65,8 @@ using namespace std;
 //
 // Protects OpenSSL against concurrency
 //
-static void locking_function(int mode, int n, const char*, int)
+static void locking_function(std::mutex* mutexes, int mode, int n, const char*, int)
 {
-  static std::mutex* mutexes = new std::mutex[CRYPTO_num_locks()];
-
   if (mode & CRYPTO_LOCK)
     mutexes[n].lock();
   else
@@ -82,8 +80,10 @@ static unsigned long id_function(void)
 
 void Cipher::initialize()
 {
+  static std::mutex* mutexes = new std::mutex[CRYPTO_num_locks()];
+
   CRYPTO_set_id_callback(id_function);
-  CRYPTO_set_locking_callback(locking_function);
+  CRYPTO_set_locking_callback(std::bind(locking_function, mutexes));
 }
 //
 // END protects OpenSSL against concurrency
