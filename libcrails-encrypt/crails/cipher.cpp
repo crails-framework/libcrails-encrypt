@@ -50,15 +50,20 @@ using namespace std;
 // ================================================================
 // MACROS
 // ================================================================
-#define DBG_PRE __FILE__ << ":" << __LINE__ << ": "
-#define DBG_FCT(fct)   if(m_debug) cout << DBG_PRE << "FCT " << fct << endl
-#define DBG_TDUMP(v)   if(m_debug) tdump(__FILE__,__LINE__,#v,v)
-#define DBG_PKV(v)     if(m_debug) vdump(__FILE__,__LINE__,#v,v)
-#define DBG_PKVR(k,v)  if(m_debug) vdump(__FILE__,__LINE__,k,v)
-#define DBG_BDUMP(a,x) if(m_debug) bdump(__FILE__,__LINE__,#a,a,x)
-#define DBG_MDUMP(a)   if(m_debug) bdump(__FILE__,__LINE__,#a,(unsigned char*)a.c_str(),a.size())
-#define DBG_MADEIT     cout << DBG_PRE << "MADE IT" << endl
-#define PKV(v)         vdump(__FILE__,__LINE__,#v,v)
+#ifdef LIBCRAILSENCRYPT_DEBUG_MODE
+# define DBG_PRE __FILE__ << ":" << __LINE__ << ": "
+# define DBG_FCT(fct)   cout << DBG_PRE << "FCT " << fct << endl
+# define DBG_TDUMP(v)   tdump(__FILE__,__LINE__,#v,v)
+# define DBG_PKV(v)     vdump(__FILE__,__LINE__,#v,v)
+# define DBG_BDUMP(a,x) bdump(__FILE__,__LINE__,#a,a,x)
+# define DBG_MDUMP(a)   bdump(__FILE__,__LINE__,#a,(unsigned char*)a.c_str(),a.size())
+#else
+# define DBG_FCT(fct)
+# define DBG_TDUMP(v)
+# define DBG_PKV(v)
+# define DBG_BDUMP(a,x)
+# define DBG_MDUMP(a)
+#endif
 
 #define SALTED_PREFIX      "Salted__"
 
@@ -203,8 +208,7 @@ Cipher::Cipher()
   : m_cipher(CIPHER_DEFAULT_CIPHER),
     m_digest(CIPHER_DEFAULT_DIGEST),
     m_count(CIPHER_DEFAULT_COUNT),
-    m_embed(true), // compatible with openssl
-    m_debug(false)
+    m_embed(true) // compatible with openssl
 {
 }
 
@@ -218,8 +222,7 @@ Cipher::Cipher(const std::string& cipher,
   : m_cipher(cipher),
     m_digest(digest),
     m_count(count),
-    m_embed(embed),
-    m_debug(false)
+    m_embed(embed)
 {
 }
 

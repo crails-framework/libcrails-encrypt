@@ -3,4 +3,6 @@ import libs += libcrails-semantics%lib{crails-semantics}
 import libs += libbacktrace%lib{backtrace}
 import libs += libcrypto%lib{crypto}
 
+cxx.poptions =+ "-DLIBCRAILSENCRYPT_DEBUG_MODE"
+
 exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}

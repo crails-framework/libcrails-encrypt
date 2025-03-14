@@ -264,18 +264,6 @@ public:
   void file_write(const std::string& fn,
                   const std::string& data,
                   bool nl=false) const;
-public:
-  /**
-   * Set the internal debug flag.
-   * This is only useful for library developers.
-   * @param b True for debug or false otherwise.
-   */
-  void debug(bool b=true) {m_debug=b;}
-  /**
-   * Is debug mode set?
-   * @returns The current debug mode.
-   */
-  bool debug() const {return m_debug;}
 private:
   /**
    * Convert string salt to internal format.
@@ -297,7 +285,6 @@ private:
   aes_iv_t    m_iv;
   uint        m_count;
   bool        m_embed;
-  bool        m_debug;
 };
 
 #endif
