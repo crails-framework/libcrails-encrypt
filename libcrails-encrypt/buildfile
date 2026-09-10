@@ -3,6 +3,7 @@ impl_libs = # Implementation dependencies.
 import intf_libs += libbacktrace%lib{backtrace}
 import intf_libs += libcrails-semantics%lib{crails-semantics}
 import intf_libs += libssl%lib{ssl}
+import intf_libs += libcrypto%lib{crypto}
 
 lib{crails-encrypt}: {hxx ixx txx cxx}{**} $impl_libs $intf_libs
 
