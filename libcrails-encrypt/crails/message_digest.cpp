@@ -9,10 +9,8 @@ MessageDigest::MessageDigest(const EVP_MD* md) : context(EVP_MD_CTX_new()), md(m
 {
 }
 
-MessageDigest::MessageDigest(const std::string& strategy) : context(EVP_MD_CTX_new()), md(EVP_get_digestbyname(strategy.c_str()))
+MessageDigest::MessageDigest(const std::string& strategy) : context(EVP_MD_CTX_new()), md(Digest::find_by_name(strategy))
 {
-  if (!md)
-    throw std::runtime_error("unknown digest routine `" + strategy + '`');
 }
 
 MessageDigest::~MessageDigest()

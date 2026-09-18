@@ -1,4 +1,5 @@
 #include "digest.hpp"
+#include <stdexcept>
 
 using namespace std;
 using namespace Crails;
@@ -19,4 +20,13 @@ string Digest::to_base64() const
 
   EVP_EncodeBlock(reinterpret_cast<unsigned char*>(buffer), md_value, md_len);
   return string(buffer);
+}
+
+const EVP_MD* Digest::find_by_name(const string& strategy)
+{
+  const EVP_MD* md = EVP_get_digestbyname(strategy.c_str());
+
+  if (!md)
+    throw runtime_error("unknown digest routine `" + strategy + '`');
+  return md;
 }

@@ -9,6 +9,7 @@ namespace Crails
   {
   public:
     HmacDigest(const EVP_MD*, const std::string& key, const std::string& message);
+    HmacDigest(const std::string& strategy, const std::string& key, const std::string& message);
     HmacDigest(const HmacDigest&) = delete;
   };
 }

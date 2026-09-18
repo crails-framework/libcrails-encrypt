@@ -14,6 +14,8 @@ namespace Crails
   public:
     std::string to_string() const;
     std::string to_base64() const;
+
+    static const EVP_MD* find_by_name(const std::string& strategy);
   };
 }
 
