@@ -1,0 +1,6 @@
+import libs += libcrails-encrypt%lib{crails-encrypt}
+import libs += libcrails-semantics%lib{crails-semantics}
+import libs += libbacktrace%lib{backtrace}
+import libs += libcrypto%lib{crypto}
+
+exe{driver}: {hxx ixx txx cxx}{**} $libs testscript{**}

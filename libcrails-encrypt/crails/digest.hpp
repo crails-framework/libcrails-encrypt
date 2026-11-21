@@ -10,7 +10,7 @@ namespace Crails
   {
   protected:
     unsigned char md_value[EVP_MAX_MD_SIZE];
-    unsigned int  md_len;
+    unsigned int  md_len = 0;
   public:
     std::string to_string() const;
     std::string to_base64() const;
