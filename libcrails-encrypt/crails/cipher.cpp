@@ -1,12 +1,13 @@
 #include "cipher.hpp"
+#include "ssl_base64.hpp"
 #include <crails/utils/backtrace.hpp>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
-#include <cctype>
 #include <fstream>
 #include <memory>
 
 using namespace std;
+using namespace Crails;
 
 constexpr unsigned char version = 1;
 constexpr size_t key_size = 32, salt_size = 16, iv_size = 12, tag_size = 16;
@@ -80,12 +81,12 @@ string Cipher::encrypt(const string& plaintext, const string& pass) const
   check(EVP_EncryptUpdate(ctx.get(), body, &length, reinterpret_cast<const unsigned char*>(plaintext.data()), plaintext.size()), "EVP_EncryptUpdate");
   check(EVP_EncryptFinal_ex(ctx.get(), body + length, &length), "EVP_EncryptFinal_ex");
   check(EVP_CIPHER_CTX_ctrl(ctx.get(), EVP_CTRL_AEAD_GET_TAG, tag_size, tag), "EVP_CTRL_AEAD_GET_TAG");
-  return base64_encode(out);
+  return ssl_base64_encode(out);
 }
 
 string Cipher::decrypt(const string& mimetext, const string& pass) const
 {
-  const string raw = base64_decode(mimetext);
+  const string raw = ssl_base64_decode(mimetext);
 
   if (raw.size() < header_size + tag_size || static_cast<unsigned char>(raw[0]) != version)
     throw boost_ext::runtime_error("Cipher: invalid ciphertext");

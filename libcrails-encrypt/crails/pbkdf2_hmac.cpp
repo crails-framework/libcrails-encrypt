@@ -3,15 +3,21 @@
 #include <sstream>
 #include <cctype>
 #include <algorithm>
+#include <stdexcept>
 
 using namespace std;
 using namespace Crails;
 
 Pbkdf2HmacDigest::Pbkdf2HmacDigest(const string_view password, const string_view salt, const EVP_MD* digest)
-  : iteration_count(4096), salt(salt), digest(digest)
+  : Pbkdf2HmacDigest(password, salt, default_iteration_count, digest)
+{
+}
+
+Pbkdf2HmacDigest::Pbkdf2HmacDigest(const string_view password, const string_view salt, unsigned int iteration_count, const EVP_MD* digest)
+  : iteration_count(iteration_count), salt(salt), digest(digest)
 {
   md_len = 64;
-  ::PKCS5_PBKDF2_HMAC(
+  if (!::PKCS5_PBKDF2_HMAC(
     password.data(),
     password.length(),
     reinterpret_cast<const unsigned char*>(salt.data()),
@@ -20,7 +26,8 @@ Pbkdf2HmacDigest::Pbkdf2HmacDigest(const string_view password, const string_view
     digest,
     md_len,
     md_value
-  );
+  ))
+    throw std::runtime_error("PBKDF2 failed");
 }
 
 string Pbkdf2HmacDigest::password_hash() const
